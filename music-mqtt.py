@@ -3,7 +3,7 @@
 import gi
 gi.require_version('Playerctl', '1.0')
 from gi.repository import Playerctl, GLib
-import paho.mqtt.publish as publish
+import paho.mqtt.publish as pub
 import sys
 import datetime
 import json
@@ -16,7 +16,7 @@ auth = {'username': sys.argv[2], 'password' : sys.argv[3]}
 def publish(song):
   song['_timestamp'] = str(datetime.datetime.now())
   song_str = json.dumps(song)
-  publish.single(topic=topic, payload=song_str, hostname=broker, auth=auth, retain=True)
+  pub.single(topic=topic, payload=song_str, hostname=broker, auth=auth, retain=True)
 
 def on_play(player):
   title = player.get_title()
